@@ -3,46 +3,46 @@
 using namespace std;
 
 template <class T>
-class Nodo{
+class Node{
 public:
-	Nodo();
-	Nodo(T d);
+	Node();
+	Node(T d);
 	T m_data;
-	Nodo<T>* next;
+	Node<T>* next;
 };
 
 template <class T>
-Nodo<T>::Nodo(){
+Node<T>::Node(){
 	next = NULL;
 }
 
 template <class T>
-Nodo<T>::Nodo(T x){
+Node<T>::Node(T x){
 	m_data = x;
 	next = NULL;
 }
 
 template <class T>
-class Lista {
+class List {
 	public:
 
-	typedef Nodo<T> node;
-	Lista();	
+	typedef Node<T> node;
+	List();	
 	bool find(node**& p, T d);
-	bool insertar(T d);
-	bool borrar(T d);
-	node* cab;
-	void imprimir();
+	bool insert(T d);
+	bool remove(T d);
+	node* head;
+	void print();
 };
 
 template <class T>
-Lista<T>::Lista(){
-	cab= NULL;
+List<T>::List(){
+	head= NULL;
 }
 
 template <class T>
-bool Lista<T>::find(node**& p, T d){
-	p = &cab;
+bool List<T>::find(node**& p, T d){
+	p = &head;
 
 	for(;(*p) &&((*p)->m_data < d); p = &(*p)->next);
 
@@ -50,26 +50,26 @@ bool Lista<T>::find(node**& p, T d){
 }
 
 template <class T>
-bool Lista<T>::insertar(T d){
+bool List<T>::insert(T d){
 	node** p;
 	if(find(p, d))
 		return 0;
 
-	node* temp = new Nodo<T>(d);
+	node* temp = new Node<T>(d);
 	temp->next = *p;
 	*p = temp;
 	return 1;
 }
 template <class T>
-void Lista<T>::imprimir(){
-	node* p = cab;
+void List<T>::print(){
+	node* p = head;
 	for(;p ; p = p->next)
 		cout << p->m_data<< " ";
 	cout << endl; 
 }
 
 template <class T>
-bool Lista<T>::borrar(T d){
+bool List<T>::remove(T d){
 	node** p;
 	if(!find(p, d))
 		return 0;
@@ -82,14 +82,16 @@ return 1;
 
 int main(){
 
-	Lista<int> li;
+	List<int> list;
 
-	li.insertar(10);
-	li.insertar(3);
-	li.insertar(4);
-	li.insertar(9);
-	li.imprimir();
-	li.borrar(4);
-	li.imprimir();
+	list.insert(10);
+	list.insert(3);
+	list.insert(11);
+	list.insert(1);
+	list.insert(2);
+	list.insert(4);
+	list.insert(9);
+	list.remove(4);
+	list.print();
 	return 0;
 }
